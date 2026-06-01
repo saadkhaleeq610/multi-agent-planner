@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,6 +12,8 @@ from langchain_groq import ChatGroq
 from graph import stream_plan
 
 load_dotenv()
+
+FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 
 app = FastAPI()
 
@@ -34,7 +37,7 @@ class GoalRequest(BaseModel):
 
 @app.get("/")
 def serve_frontend():
-    return FileResponse("../frontend/index.html")
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 @app.post("/plan")
@@ -50,4 +53,4 @@ async def plan(request: GoalRequest):
     return EventSourceResponse(event_generator())
 
 
-app.mount("/static", StaticFiles(directory="../frontend"), name="static")
+app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")

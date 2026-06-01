@@ -46,7 +46,7 @@ async function startPlanning() {
   document.getElementById("pipeline").classList.remove("hidden");
 
   try {
-    const response = await fetch("http://localhost:8000/plan", {
+    const response = await fetch("/plan", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ goal }),
