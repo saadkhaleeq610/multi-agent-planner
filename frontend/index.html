@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multi-Agent Task Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Multi-Agent Task Planner</h1>
+      <p class="subtitle">Powered by LangGraph + Groq + LLaMA 3.1</p>
+    </header>
+
+    <div class="input-section">
+      <textarea id="goalInput" placeholder="Enter your goal... e.g. Plan a trip to Japan for 7 days" rows="3"></textarea>
+      <button id="planBtn" onclick="startPlanning()">Generate Plan</button>
+    </div>
+
+    <div id="pipeline" class="pipeline hidden">
+      <div class="agent-card" id="card-planner">
+        <div class="agent-header">
+          <span class="agent-icon">🧠</span>
+          <span class="agent-name">Planner Agent</span>
+          <span class="agent-status" id="status-planner">Waiting</span>
+        </div>
+        <div class="agent-output" id="output-planner"></div>
+      </div>
+
+      <div class="arrow">↓</div>
+
+      <div class="agent-card" id="card-researcher">
+        <div class="agent-header">
+          <span class="agent-icon">🔍</span>
+          <span class="agent-name">Researcher Agent</span>
+          <span class="agent-status" id="status-researcher">Waiting</span>
+        </div>
+        <div class="agent-output" id="output-researcher"></div>
+      </div>
+
+      <div class="arrow">↓</div>
+
+      <div class="agent-card" id="card-executor">
+        <div class="agent-header">
+          <span class="agent-icon">⚙️</span>
+          <span class="agent-name">Executor Agent</span>
+          <span class="agent-status" id="status-executor">Waiting</span>
+        </div>
+        <div class="agent-output" id="output-executor"></div>
+      </div>
+
+      <div class="arrow">↓</div>
+
+      <div class="agent-card" id="card-summarizer">
+        <div class="agent-header">
+          <span class="agent-icon">📋</span>
+          <span class="agent-name">Summarizer Agent</span>
+          <span class="agent-status" id="status-summarizer">Waiting</span>
+        </div>
+        <div class="agent-output" id="output-summarizer"></div>
+      </div>
+    </div>
+
+    <div id="finalResult" class="final-result hidden">
+      <h2>Final Action Plan</h2>
+      <div id="finalContent"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
